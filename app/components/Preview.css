@@ -1,0 +1,8 @@
+.container {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  z-index: 10;
+  transform: translateZ(0);
+}
