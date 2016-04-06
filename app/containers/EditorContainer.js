@@ -8,7 +8,7 @@ import * as EditorActions from '../actions/editor';
 */
 function mapStateToProps(state) {
   return {
-    theme: state.editor.theme
+    options: state.editor.options
   };
 }
 

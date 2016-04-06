@@ -6,7 +6,11 @@ const initialState = {
     html: '',
     markdown: ''
   },
-  theme: 'rubyblue' /* todo: Load Initial State from configuration file ~/.markorc */
+  options: {
+    lineNumbers: false,
+    mode: 'markdown',
+    theme: 'rubyblue', /* todo: Load Initial State from configuration file ~/.markorc */
+  }
 };
 
 export default function marko(state = initialState, action) {
