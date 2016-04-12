@@ -71,7 +71,8 @@ class Application extends EventEmitter {
 
     /** Menu events **/
     this.menu.on('application:new-file', () => {
-      this.openWithOptions(options);
+      const newWindow = this.openWithOptions(options);
+      newWindow.show(`file://${__dirname}/app/app.html`);
     });
 
     this.menu.on('application:open-file', () => {

@@ -4,15 +4,15 @@ import classNames from 'classnames';
 import styles from './Preview.css';
 
 const Preview = (props) => {
-  const { value } = props;
+  const { html } = props;
   const previewStyles = classNames(styles.container, 'markdown-body');
   return (
-      <div className={previewStyles} dangerouslySetInnerHTML={{ __html: value }} />
+      <div className={previewStyles} dangerouslySetInnerHTML={{ __html: html }} />
   );
 };
 
 Preview.propTypes = {
-  value: PropTypes.string
+  html: PropTypes.string
 };
 
 export default Preview;

@@ -6,7 +6,8 @@ import Preview from '../components/Preview';
 */
 function mapStateToProps(state) {
   return {
-    value: state.editor.html
+    html: state.editor.html,
+    scrollTop: state.editor.scrollTop,
   };
 }
 

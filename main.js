@@ -16,6 +16,6 @@ if (process.env.NODE_ENV === 'development') {
 
 app.on('ready', () => {
   global.application = new Application();
-  const mainWindow = global.application.openWithOptions({});
-  mainWindow.show(`file://${__dirname}/app/app.html`);
+  global.mainWindow = global.application.openWithOptions({});
+  global.mainWindow.show(`file://${__dirname}/app/app.html`);
 });

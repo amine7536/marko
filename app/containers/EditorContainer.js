@@ -8,7 +8,8 @@ import * as EditorActions from '../actions/editor';
 */
 function mapStateToProps(state) {
   return {
-    options: state.editor.options
+    options: state.editor.options,
+    markdown: state.editor.markdown,
   };
 }
 

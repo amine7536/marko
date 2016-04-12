@@ -1,11 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import CodeMirror from 'react-codemirror';
+// import CodeMirror from 'react-codemirror';
+import CodeMirror from './CodeMirror';
+import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import 'codemirror/mode/markdown/markdown';
+import './EditorCodeM.css';
 
 class Editor extends Component {
   static propTypes = {
     updateMarkdown: PropTypes.func.isRequired,
-    options: PropTypes.object.isRequired
+    toggleScrolling: PropTypes.func.isRequired,
+    options: PropTypes.object.isRequired,
+    markdown: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -20,11 +26,13 @@ class Editor extends Component {
   }
 
   render() {
-    const { options, updateMarkdown } = this.props;
+    const { options, markdown, updateMarkdown, toggleScrolling } = this.props;
     return (
       <CodeMirror
         ref="editor"
-        onChange={(event) => updateMarkdown(event)}
+        value={markdown}
+        onChange={debounce((event) => updateMarkdown(event), 10)}
+        onScroll={throttle((event) => toggleScrolling(event), 10)}
         options={options}
       />
     );
