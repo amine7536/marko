@@ -1,10 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 // import CodeMirror from 'react-codemirror';
-import CodeMirror from './CodeMirror';
+import CodeMirror from 'codemirror';
+import 'codemirror/addon/search/search';
+import 'codemirror/addon/search/searchcursor';
+import 'codemirror/addon/search/matchesonscrollbar';
+import 'codemirror/addon/search/match-highlighter';
+import 'codemirror/addon/search/searchcursor';
+import 'codemirror/addon/dialog/dialog';
+import 'codemirror/addon/dialog/dialog.css';
+import 'codemirror/mode/markdown/markdown';
+import ReactCodeMirror from './ReactCodeMirror';
 import throttle from 'lodash.throttle';
 import debounce from 'lodash.debounce';
-import 'codemirror/mode/markdown/markdown';
-import './EditorCodeM.css';
 
 class Editor extends Component {
   static propTypes = {
@@ -28,8 +35,9 @@ class Editor extends Component {
   render() {
     const { options, markdown, updateMarkdown, toggleScrolling } = this.props;
     return (
-      <CodeMirror
+      <ReactCodeMirror
         ref="editor"
+        codeMirrorInstance={CodeMirror}
         value={markdown}
         onChange={debounce((event) => updateMarkdown(event), 10)}
         onScroll={throttle((event) => toggleScrolling(event), 10)}
