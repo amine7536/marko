@@ -23,26 +23,25 @@ class AppWindow extends EventEmitter {
     /** Init BrowserWindow with provided options **/
     this.window = new BrowserWindow(windowOpts);
 
+    console.log(options.MarkdownBuffer);
     /**
      *  Attached Markdown Buffer Document to BrowserWindow
      *  If options.bufferdoc exists from openfile add it to currentWindow
      *  or initialize empty buffer vars
      * **/
-    // if (options.bufferdoc !== null) {
-    //   console.log('add bufferdoc');
-    //   this.window.MarkdownBuffer = options.MarkdownBuffer;
-    // } else {
-    //   console.log('add bufferdoc 2');
-    //   this.window.MarkdownBuffer = {
-    //     path: '',
-    //     content: '',
-    //   };
-    // }
+    if (options.MarkdownBuffer) {
+      this.window.MarkdownBuffer = options.MarkdownBuffer;
+    } else {
+      this.window.MarkdownBuffer = {
+        path: '',
+        markdown: '',
+      };
+    }
 
     /**
     * Used later to Open/Save files
     */
-    this.window.MarkdownBuffer = { path: '', markdown: '' };
+    // this.window.MarkdownBuffer = { path: '', markdown: '' };
 
     this.window.on('closed', (e) => {
       this.emit('closed', e);

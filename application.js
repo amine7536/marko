@@ -102,9 +102,37 @@ class Application extends EventEmitter {
         results.push(this.windows.splice(idx, 1));
       }
     }
-
     // console.log("Remove window from windows array " + this.windows.length);
     return results;
+  }
+
+  openFile(options) {
+    const dialogOptions = {
+      title: 'OpenFileDialog',
+      properties: ['openFile', 'openDirectory', 'multiSelections']
+    };
+
+    const openOptions = options;
+
+    Dialog.showOpenDialog(dialogOptions, (files) => {
+      fs.readFile(files[0], 'utf8', (err, data) => {
+        if (err) {
+          throw err;
+        } else {
+          openOptions.MarkdownBuffer = {
+            path: files[0],
+            markdown: data
+          };
+
+          // Open new window with options.mddoc
+          const newWindow = this.openWithOptions(openOptions);
+          newWindow.show(`file://${__dirname}/app/app.html`);
+
+          // Clear buffer doc so new windows don't load with previously opened doc
+          openOptions.bufferdoc = null;
+        }
+      });
+    });
   }
 
   saveFile() {
@@ -134,7 +162,6 @@ class Application extends EventEmitter {
   save(file, content) {
     fs.writeFile(file, content, (err) => {
       if (err) throw err;
-      console.log('File Saved');
     });
   }
 }

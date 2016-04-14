@@ -2,6 +2,8 @@ import { MARKDOWN_CHANGED, TOGGLE_SCROLLING } from '../actions/editor';
 import parser from '../utils/markdownParser';
 import browserWindow from '../utils/browserWindow';
 
+console.log('mdbuffer = ', browserWindow.MarkdownBuffer.markdown);
+
 const initialState = {
   html: '',
   markdown: browserWindow.MarkdownBuffer.markdown || '',
