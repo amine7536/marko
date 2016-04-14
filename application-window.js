@@ -23,7 +23,6 @@ class AppWindow extends EventEmitter {
     /** Init BrowserWindow with provided options **/
     this.window = new BrowserWindow(windowOpts);
 
-    console.log(options.MarkdownBuffer);
     /**
      *  Attached Markdown Buffer Document to BrowserWindow
      *  If options.bufferdoc exists from openfile add it to currentWindow
