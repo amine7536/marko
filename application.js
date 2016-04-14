@@ -4,8 +4,8 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-// const Dialog = electron.Dialog;
-// const fs = require('fs-plus');
+const Dialog = electron.dialog;
+const fs = require('fs-plus');
 // const _ = require('underscore-plus');
 const EventEmitter = require('events').EventEmitter;
 
@@ -22,8 +22,6 @@ class Application extends EventEmitter {
     app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') app.quit();
     });
-
-    // this.openWithOptions();
   }
 
   openWithOptions(options) {
@@ -80,11 +78,11 @@ class Application extends EventEmitter {
     });
 
     this.menu.on('application:save-file', () => {
-      this.saveFile(options);
+      this.saveFile();
     });
 
     this.menu.on('application:save-as-file', () => {
-      this.saveAsFile(options);
+      this.saveAsFile();
     });
 
     return appWindow;
@@ -107,6 +105,37 @@ class Application extends EventEmitter {
 
     // console.log("Remove window from windows array " + this.windows.length);
     return results;
+  }
+
+  saveFile() {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+
+    if (!focusedWindow.MarkdownBuffer.path) {
+      this.saveAsFile();
+    } else {
+      this.save(focusedWindow.MarkdownBuffer.path, focusedWindow.MarkdownBuffer.markdown);
+    }
+  }
+
+  saveAsFile() {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    const dialogOptions = {
+      title: 'SaveFileDialog'
+    };
+
+    Dialog.showSaveDialog(dialogOptions, (file) => {
+      if (file) {
+        this.save(file, focusedWindow.MarkdownBuffer.markdown);
+        focusedWindow.MarkdownBuffer.path = file;
+      }
+    });
+  }
+
+  save(file, content) {
+    fs.writeFile(file, content, (err) => {
+      if (err) throw err;
+      console.log('File Saved');
+    });
   }
 }
 

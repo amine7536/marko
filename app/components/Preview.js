@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import 'github-markdown-css';
 import classNames from 'classnames';
 import styles from './Preview.css';
 
